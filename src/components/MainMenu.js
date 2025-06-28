@@ -93,9 +93,6 @@ const MainMenu = ({ onStartGame, onQuit, settings, onToggleMute, onUpdateVolume,
       resizeObserver.observe(mountRef.current);
     }
 
-    // Animate menu appearance
-    setTimeout(() => setMenuVisible(true), 500);
-
     return () => {
       window.removeEventListener('resize', handleResize);
       document.removeEventListener('fullscreenchange', handleFullscreenChange);
@@ -449,37 +446,40 @@ const MainMenu = ({ onStartGame, onQuit, settings, onToggleMute, onUpdateVolume,
           </div>
         </div>
       )}
-      {/* Always visible menu */}
-      <div className="menu-title visible">
-        <h1 className="game-title-menu">RUNNER GAME</h1>
-        <div className="game-subtitle">ADVENTURE AWAITS</div>
-        <div className="game-version">v2.0 Enhanced Edition</div>
-      </div>
-      <div className="menu-options visible">
-        {menuOptions.map((option, index) => (
-          <div
-            key={index}
-            className={`menu-option ${selectedOption === index ? 'selected' : ''} ${hoveredOption === index ? 'hovered' : ''}`}
-            style={{ 
-              animationDelay: `${index * 0.08}s`,
-              cursor: 'pointer'
-            }}
-            onClick={() => handleOptionClick(index)}
-            onMouseEnter={() => handleOptionHover(index)}
-            onMouseLeave={handleOptionMouseLeave}
-          >
-            <span className="option-icon">{option.icon}</span>
-            <span className="option-label">{option.label}</span>
-            {selectedOption === index && <span className="selection-indicator">▶</span>}
-          </div>
-        ))}
-      </div>
-      <div className="menu-controls visible">
-        <div className="control-hint">
-          Use ↑↓ arrows to navigate, ENTER to select
+      {/* Menu content wrapper */}
+      <div className="menu-content">
+        {/* Always visible menu */}
+        <div className="menu-title visible">
+          <h1 className="game-title-menu">RUNNER GAME</h1>
+          <div className="game-subtitle">ADVENTURE AWAITS</div>
+          <div className="game-version">v2.0 Enhanced Edition</div>
         </div>
-        <div className="music-info">
-          🎵 Now Playing: YOASOBI - 夜に駆ける
+        <div className="menu-options visible">
+          {menuOptions.map((option, index) => (
+            <div
+              key={index}
+              className={`menu-option ${selectedOption === index ? 'selected' : ''} ${hoveredOption === index ? 'hovered' : ''}`}
+              style={{ 
+                animationDelay: `${index * 0.08}s`,
+                cursor: 'pointer'
+              }}
+              onClick={() => handleOptionClick(index)}
+              onMouseEnter={() => handleOptionHover(index)}
+              onMouseLeave={handleOptionMouseLeave}
+            >
+              <span className="option-icon">{option.icon}</span>
+              <span className="option-label">{option.label}</span>
+              {selectedOption === index && <span className="selection-indicator">▶</span>}
+            </div>
+          ))}
+        </div>
+        <div className="menu-controls visible">
+          <div className="control-hint">
+            Use ↑↓ arrows to navigate, ENTER to select
+          </div>
+          <div className="music-info">
+            🎵 Now Playing: YOASOBI - 夜に駆ける
+          </div>
         </div>
       </div>
     </div>
